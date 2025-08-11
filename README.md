@@ -263,7 +263,8 @@ export RUNPOD_API_KEY="your_api_key_here"
 The installer will:
 1. Guide you through API key setup
 2. Check if RunPod server is built locally
-3. Install it to Claude Code automatically
+3. **Automatically create wrapper script** for environment variables
+4. Install it to Claude Code with wrapper
 
 ## 🔧 Available Scripts
 
@@ -297,6 +298,26 @@ The installer will:
 - **Usage**: `.\scripts\install.ps1 -All -Apps "claude-code"`
 - **Features**: Multi-app support, backup, dry-run mode
 
+## 🔧 Wrapper Script Utilities
+
+For custom servers that require environment variables (like RunPod), we provide wrapper script generators:
+
+### `utils/create-wrapper.sh` (macOS/Linux)
+```bash
+./scripts/utils/create-wrapper.sh --server=runpod --path=/path/to/server.js --env-vars=RUNPOD_API_KEY
+```
+
+### `utils/Create-Wrapper.ps1` (Windows)
+```powershell
+.\scripts\utils\Create-Wrapper.ps1 -Server runpod -ServerPath "C:\path\to\server.js" -EnvVars "RUNPOD_API_KEY"
+```
+
+**What wrapper scripts do:**
+- Set required environment variables
+- Launch the MCP server with proper configuration
+- Work around Claude Code's environment variable limitations
+- Enable API key-based servers to function properly
+
 ## 📁 Project Structure
 
 ```
@@ -305,10 +326,15 @@ My-MCP-Servers/
 ├── scripts/
 │   ├── install-working.ps1      # Main installer (Windows)
 │   ├── install-enhanced.ps1     # Interactive installer (Windows)
+│   ├── install-enhanced-custom.ps1 # Custom server installer (Windows)
 │   ├── install-macos.sh         # Main installer (macOS)
 │   ├── install-enhanced-macos.sh # Interactive installer (macOS)
+│   ├── install-enhanced-custom-macos.sh # Custom server installer (macOS)
 │   ├── install.ps1              # Legacy installer (Windows)
-│   └── install.sh               # Legacy installer (macOS/Linux)
+│   ├── install.sh               # Legacy installer (macOS/Linux)
+│   └── utils/
+│       ├── create-wrapper.sh    # Wrapper generator (macOS/Linux)
+│       └── Create-Wrapper.ps1   # Wrapper generator (Windows)
 ├── servers/
 │   └── registry.json            # Server definitions
 └── configs/                     # Platform-specific configs (planned)
