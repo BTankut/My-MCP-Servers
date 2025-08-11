@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "description": "MCP Server Registry - Centralized server configuration management",
+  "servers": {
+    "github": {
+      "name": "GitHub MCP Server",
+      "description": "GitHub API integration for repository management",
+      "install_command": {
+        "npm": "npx -y @modelcontextprotocol/server-github",
+        "type": "npx"
+      },
+      "config_template": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-github"]
+      },
+      "supported_platforms": ["windows", "macos", "linux"],
+      "supported_apps": ["claude-code", "claude-desktop"],
+      "category": "development",
+      "official": true
+    },
+    "huggingface": {
+      "name": "Hugging Face MCP Server",
+      "description": "Hugging Face model and dataset access",
+      "install_command": {
+        "python": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3 /Users/btmacbookair/huggingface-mcp-server/src/huggingface/server.py",
+        "type": "python"
+      },
+      "config_template": {
+        "command": "python3",
+        "args": ["{path}/huggingface-mcp-server/src/huggingface/server.py"]
+      },
+      "supported_platforms": ["windows", "macos", "linux"],
+      "supported_apps": ["claude-code", "claude-desktop"],
+      "category": "ai-ml",
+      "official": false
+    },
+    "sequential-thinking": {
+      "name": "Sequential Thinking MCP Server",
+      "description": "Sequential thinking and reasoning capabilities",
+      "install_command": {
+        "npm": "npx @modelcontextprotocol/server-sequential-thinking",
+        "type": "npx"
+      },
+      "config_template": {
+        "command": "npx",
+        "args": ["@modelcontextprotocol/server-sequential-thinking"]
+      },
+      "supported_platforms": ["windows", "macos", "linux"],
+      "supported_apps": ["claude-code", "claude-desktop"],
+      "category": "reasoning",
+      "official": true
+    },
+    "puppeteer": {
+      "name": "Puppeteer MCP Server",
+      "description": "Browser automation and web scraping",
+      "install_command": {
+        "npm": "npx @modelcontextprotocol/server-puppeteer",
+        "type": "npx"
+      },
+      "config_template": {
+        "command": "npx",
+        "args": ["@modelcontextprotocol/server-puppeteer"]
+      },
+      "supported_platforms": ["windows", "macos", "linux"],
+      "supported_apps": ["claude-code", "claude-desktop"],
+      "category": "web",
+      "official": true
+    },
+    "magic": {
+      "name": "21st Magic MCP Server",
+      "description": "UI component generation and magic tools",
+      "install_command": {
+        "npm": "npx @21st-dev/magic@latest",
+        "type": "npx"
+      },
+      "config_template": {
+        "command": "npx",
+        "args": ["@21st-dev/magic@latest"]
+      },
+      "supported_platforms": ["windows", "macos", "linux"],
+      "supported_apps": ["claude-code", "claude-desktop"],
+      "category": "ui-development",
+      "official": false
+    },
+    "context7": {
+      "name": "Context7 MCP Server",
+      "description": "Context-aware documentation and library assistance",
+      "install_command": {
+        "url": "https://mcp.context7.com/mcp",
+        "type": "http"
+      },
+      "config_template": {
+        "url": "https://mcp.context7.com/mcp",
+        "transport": "http"
+      },
+      "supported_platforms": ["windows", "macos", "linux"],
+      "supported_apps": ["claude-code", "claude-desktop"],
+      "category": "documentation",
+      "official": false
+    },
+    "desktop-commander": {
+      "name": "Desktop Commander MCP Server",
+      "description": "Desktop automation and system control",
+      "install_command": {
+        "npm": "npx -y @wonderwhy-er/desktop-commander",
+        "type": "npx"
+      },
+      "config_template": {
+        "command": "npx",
+        "args": ["-y", "@wonderwhy-er/desktop-commander"]
+      },
+      "supported_platforms": ["windows", "macos", "linux"],
+      "supported_apps": ["claude-code", "claude-desktop"],
+      "category": "automation",
+      "official": false
+    },
+    "cloud-run": {
+      "name": "Google Cloud Run MCP Server",
+      "description": "Google Cloud Run deployment and management",
+      "install_command": {
+        "npm": "npx -y https://github.com/GoogleCloudPlatform/cloud-run-mcp",
+        "type": "npx"
+      },
+      "config_template": {
+        "command": "npx",
+        "args": ["-y", "https://github.com/GoogleCloudPlatform/cloud-run-mcp"]
+      },
+      "supported_platforms": ["windows", "macos", "linux"],
+      "supported_apps": ["claude-code", "claude-desktop"],
+      "category": "cloud",
+      "official": false
+    },
+    "supabase": {
+      "name": "Supabase MCP Server",
+      "description": "Supabase database and backend services",
+      "install_command": {
+        "npm": "npx -y @supabase/mcp-server-supabase@latest",
+        "type": "npx"
+      },
+      "config_template": {
+        "command": "npx",
+        "args": ["-y", "@supabase/mcp-server-supabase@latest"]
+      },
+      "supported_platforms": ["windows", "macos", "linux"],
+      "supported_apps": ["claude-code", "claude-desktop"],
+      "category": "database",
+      "official": false
+    }
+  }
+}

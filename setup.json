@@ -1,0 +1,56 @@
+{
+  "name": "MCP Server Manager",
+  "version": "1.0.0",
+  "description": "Centralized MCP server configuration management for multiple applications",
+  "author": "MCP Server Manager Team",
+  "supported_platforms": ["windows", "macos", "linux"],
+  "supported_applications": [
+    {
+      "name": "claude-code",
+      "display_name": "Claude Code",
+      "config_paths": {
+        "windows": "%APPDATA%\\claude\\mcp.json",
+        "macos": "~/.config/claude/mcp.json",
+        "linux": "~/.config/claude/mcp.json"
+      }
+    },
+    {
+      "name": "claude-desktop",
+      "display_name": "Claude Desktop",
+      "config_paths": {
+        "windows": "%APPDATA%\\Claude\\claude_desktop_config.json",
+        "macos": "~/Library/Application Support/Claude/claude_desktop_config.json"
+      }
+    },
+    {
+      "name": "windsurf",
+      "display_name": "Windsurf",
+      "config_paths": {
+        "windows": "%APPDATA%\\Windsurf\\User\\settings.json",
+        "macos": "~/Library/Application Support/Windsurf/User/settings.json"
+      }
+    },
+    {
+      "name": "cursor",
+      "display_name": "Cursor",
+      "config_paths": {
+        "windows": "%APPDATA%\\Cursor\\User\\settings.json",
+        "macos": "~/Library/Application Support/Cursor/User/settings.json"
+      }
+    },
+    {
+      "name": "vscode-cline",
+      "display_name": "VS Code with Cline",
+      "config_paths": {
+        "windows": ".vscode\\settings.json",
+        "macos": ".vscode/settings.json",
+        "linux": ".vscode/settings.json"
+      }
+    }
+  ],
+  "default_settings": {
+    "backup_before_install": true,
+    "interactive_mode": false,
+    "dry_run": false
+  }
+}
