@@ -236,7 +236,7 @@ RunPod server requires manual installation as it's not available via NPX:
 
 **Installation:**
 ```bash
-# Clone RunPod MCP server
+# Clone RunPod MCP server (in any directory)
 git clone https://github.com/runpod/runpod-mcp-ts.git
 cd runpod-mcp-ts
 
@@ -245,8 +245,19 @@ npm install
 npm run build
 
 # Set API key (see API Key Setup above)
+# Windows:
+[Environment]::SetEnvironmentVariable("RUNPOD_API_KEY", "your_api_key_here", "User")
+
+# macOS/Linux:
 export RUNPOD_API_KEY="your_api_key_here"
 ```
+
+**Automatic Installation with Scripts:**
+Our installer scripts will automatically detect RunPod if built in common locations:
+- `./runpod-mcp-ts/` (same directory as My-MCP-Servers)
+- `../runpod-mcp-ts/` (parent directory)  
+- `~/runpod-mcp-ts/` (user home directory)
+- `C:\runpod-mcp-ts\` (Windows root)
 
 **Using Enhanced Custom Installer:**
 
