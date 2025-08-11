@@ -11,7 +11,7 @@
       },
       "config_template": {
         "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-github"]
+        "args": ["@modelcontextprotocol/server-github"]
       },
       "supported_platforms": ["windows", "macos", "linux"],
       "supported_apps": ["claude-code", "claude-desktop"],
@@ -132,7 +132,7 @@
       },
       "config_template": {
         "command": "npx",
-        "args": ["-y", "@wonderwhy-er/desktop-commander"]
+        "args": ["@wonderwhy-er/desktop-commander"]
       },
       "supported_platforms": ["windows", "macos", "linux"],
       "supported_apps": ["claude-code", "claude-desktop"],
@@ -182,7 +182,7 @@
       },
       "config_template": {
         "command": "npx",
-        "args": ["-y", "@supabase/mcp-server-supabase@latest"]
+        "args": ["@supabase/mcp-server-supabase@latest"]
       },
       "supported_platforms": ["windows", "macos", "linux"],
       "supported_apps": ["claude-code", "claude-desktop"],

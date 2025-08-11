@@ -163,12 +163,12 @@ function Start-InteractiveMode {
     for ($i = 0; $i -lt $AvailableServers.Count; $i++) {
         $ServerName = $AvailableServers[$i]
         $ServerConfig = $Registry.servers.$ServerName
-        $KeyIcon = if ($ServerConfig.requires_api_key) { " 🔑" } else { "" }
+        $KeyIcon = if ($ServerConfig.requires_api_key) { " [KEY]" } else { "" }
         
         Write-Host "  $($i + 1). $ServerName$KeyIcon - $($ServerConfig.description)" -ForegroundColor $Yellow
     }
     
-    Write-Host "`n🔑 = Requires API Key" -ForegroundColor $Cyan
+    Write-Host "`n[KEY] = Requires API Key" -ForegroundColor $Cyan
     Write-Host ""
     
     $Selection = Read-Host "Select servers to install (comma-separated numbers or 'all')"
