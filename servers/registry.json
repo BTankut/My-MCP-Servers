@@ -206,6 +206,42 @@
         ],
         "instructions": "Go to your Supabase project dashboard → Settings → API. Copy the Project URL and anon/public key."
       }
+    },
+    "runpod": {
+      "name": "RunPod MCP Server",
+      "description": "Manage RunPod GPU cloud infrastructure - pods, endpoints, templates, and volumes",
+      "install_command": {
+        "type": "custom",
+        "instructions": "This server requires local installation. Clone from GitHub and build locally."
+      },
+      "config_template": {
+        "command": "node",
+        "args": ["{{RUNPOD_MCP_PATH}}/build/index.js"]
+      },
+      "supported_platforms": ["windows", "macos", "linux"],
+      "supported_apps": ["claude-code", "claude-desktop"],
+      "category": "cloud",
+      "official": false,
+      "requires_api_key": true,
+      "requires_local_build": true,
+      "github_repo": "https://github.com/runpod/runpod-mcp-ts",
+      "local_install_steps": [
+        "git clone https://github.com/runpod/runpod-mcp-ts.git",
+        "cd runpod-mcp-ts",
+        "npm install",
+        "npm run build"
+      ],
+      "api_key_config": {
+        "env_vars": [
+          {
+            "name": "RUNPOD_API_KEY",
+            "description": "Your RunPod API key for accessing RunPod services",
+            "required": true,
+            "setup_url": "https://www.runpod.io/console/user/settings"
+          }
+        ],
+        "instructions": "Get your API key from RunPod Console → User Settings → API Keys. Create a new key if needed."
+      }
     }
   }
 }

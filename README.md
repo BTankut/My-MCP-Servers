@@ -24,7 +24,7 @@ Automated installation and management system for MCP (Model Context Protocol) se
 - 🔄 **HTTP Transport Support** - Works with both NPX and HTTP-based servers
 - 📋 **Easy Management** - Add, remove, and list servers effortlessly
 
-## 📦 Available Servers (9 Total)
+## 📦 Available Servers (10 Total)
 
 | Server | Description | API Key | Status |
 |--------|-------------|---------|---------|
@@ -37,6 +37,7 @@ Automated installation and management system for MCP (Model Context Protocol) se
 | **Cloud Run** ☁️ | Google Cloud Run management | 🔑 Required | ✅ Working |
 | **Supabase** 🗄️ | Database and backend services | 🔑 Required | ⚠️ Needs API Keys |
 | **Hugging Face** 🤗 | AI model and dataset access | 🔑 Optional | ⚠️ Needs API Keys |
+| **RunPod** 🏃 | GPU cloud infrastructure management | 🔑 Required | 🔧 Custom Install |
 
 ## 🛠️ Quick Start
 
@@ -208,6 +209,62 @@ echo 'export GOOGLE_APPLICATION_CREDENTIALS="/path/to/key.json"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
+### RunPod API Key
+1. Go to [RunPod Console → User Settings](https://www.runpod.io/console/user/settings)
+2. Create new API key
+3. Set environment variable:
+
+**Windows:**
+```powershell
+[Environment]::SetEnvironmentVariable("RUNPOD_API_KEY", "your_api_key_here", "User")
+```
+
+**macOS:**
+```bash
+# Add to ~/.bashrc or ~/.zshrc
+echo 'export RUNPOD_API_KEY="your_api_key_here"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+## 🔧 Custom Server Setup (RunPod)
+
+RunPod server requires manual installation as it's not available via NPX:
+
+**Prerequisites:**
+- Node.js 18+ installed
+- Git installed
+
+**Installation:**
+```bash
+# Clone RunPod MCP server
+git clone https://github.com/runpod/runpod-mcp-ts.git
+cd runpod-mcp-ts
+
+# Install dependencies and build
+npm install
+npm run build
+
+# Set API key (see API Key Setup above)
+export RUNPOD_API_KEY="your_api_key_here"
+```
+
+**Using Enhanced Custom Installer:**
+
+**Windows:**
+```powershell
+.\scripts\install-enhanced-custom.ps1 -Interactive -SetupKeys
+```
+
+**macOS:**
+```bash
+./scripts/install-enhanced-custom-macos.sh --interactive --setup-keys
+```
+
+The installer will:
+1. Guide you through API key setup
+2. Check if RunPod server is built locally
+3. Install it to Claude Code automatically
+
 ## 🔧 Available Scripts
 
 ### `install-working.ps1` (Recommended)
@@ -219,6 +276,21 @@ source ~/.zshrc
 - **Purpose**: Interactive installer with API key management
 - **Usage**: `.\scripts\install-enhanced.ps1 -Interactive -SetupKeys`
 - **Features**: Interactive mode, automatic API key setup
+
+### `install-enhanced-custom.ps1` (Custom Servers)
+- **Purpose**: Support for custom/local build servers like RunPod
+- **Usage**: `.\scripts\install-enhanced-custom.ps1 -Interactive -SetupKeys`
+- **Features**: Custom server detection, local build support
+
+### `install-macos.sh` (macOS Simple)
+- **Purpose**: Production-ready installer for macOS
+- **Usage**: `./scripts/install-macos.sh --all`
+- **Features**: Registry-based, error handling
+
+### `install-enhanced-custom-macos.sh` (macOS Custom)
+- **Purpose**: macOS installer with custom server support
+- **Usage**: `./scripts/install-enhanced-custom-macos.sh --interactive --setup-keys`
+- **Features**: Interactive mode, custom server detection
 
 ### `install.ps1` (Legacy)
 - **Purpose**: Feature-complete installer
