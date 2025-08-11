@@ -6,9 +6,9 @@ Automated installation and management system for MCP (Model Context Protocol) se
 
 **✅ Fully Supported:**
 - Windows 10/11 + Claude Code
+- macOS + Claude Code
 
 **❌ Not Yet Supported (Planned):**
-- macOS + Claude Code
 - Linux + Claude Code  
 - Claude Desktop (Windows/macOS)
 - Windsurf IDE
@@ -41,12 +41,22 @@ Automated installation and management system for MCP (Model Context Protocol) se
 ## 🛠️ Quick Start
 
 ### Prerequisites
+
+**Windows:**
 - Windows 10/11
 - Claude Code CLI installed
 - PowerShell 5.1+ or PowerShell Core
 
+**macOS:**
+- macOS 10.15+
+- Claude Code CLI installed
+- Bash shell
+- jq (install with: `brew install jq`)
+
 ### Installation
-```bash
+
+**Windows:**
+```powershell
 # Clone repository
 git clone https://github.com/BTankut/My-MCP-Servers.git
 cd My-MCP-Servers
@@ -58,25 +68,64 @@ cd My-MCP-Servers
 claude mcp list
 ```
 
+**macOS:**
+```bash
+# Clone repository
+git clone https://github.com/BTankut/My-MCP-Servers.git
+cd My-MCP-Servers
+
+# Install jq if not already installed
+brew install jq
+
+# Install all servers (recommended)
+./scripts/install-macos.sh --all
+
+# Verify installation
+claude mcp list
+```
+
 ## 📋 Installation Options
 
 ### Option 1: Install All Servers (Recommended)
+
+**Windows:**
 ```powershell
 .\scripts\install-working.ps1 -All
 ```
+
+**macOS:**
+```bash
+./scripts/install-macos.sh --all
+```
+
 - Installs all 9 servers from registry
 - Uses global scope (`--scope user`)
 - Works across all projects
 
 ### Option 2: Install Specific Servers
+
+**Windows:**
 ```powershell
 .\scripts\install-working.ps1 -Servers "github,puppeteer,magic"
 ```
 
+**macOS:**
+```bash
+./scripts/install-macos.sh --servers=github,puppeteer,magic
+```
+
 ### Option 3: Interactive Installation (Advanced)
+
+**Windows:**
 ```powershell
 .\scripts\install-enhanced.ps1 -Interactive -SetupKeys
 ```
+
+**macOS:**
+```bash
+./scripts/install-enhanced-macos.sh --interactive --setup-keys
+```
+
 - Choose specific servers
 - Interactive API key setup
 - Step-by-step guidance
@@ -90,8 +139,17 @@ Some servers require API keys for full functionality:
 2. Generate new token (classic)
 3. Select scopes: `repo`, `user`, `gist`
 4. Set environment variable:
+
+**Windows:**
 ```powershell
 [Environment]::SetEnvironmentVariable("GITHUB_PERSONAL_ACCESS_TOKEN", "your_token_here", "User")
+```
+
+**macOS:**
+```bash
+# Add to ~/.bashrc or ~/.zshrc
+echo 'export GITHUB_PERSONAL_ACCESS_TOKEN="your_token_here"' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ### Supabase API Keys
@@ -99,26 +157,55 @@ Some servers require API keys for full functionality:
 2. Select your project → Settings → API
 3. Copy Project URL and anon key
 4. Set environment variables:
+
+**Windows:**
 ```powershell
 [Environment]::SetEnvironmentVariable("SUPABASE_URL", "https://your-project.supabase.co", "User")
 [Environment]::SetEnvironmentVariable("SUPABASE_ANON_KEY", "your_anon_key_here", "User")
+```
+
+**macOS:**
+```bash
+# Add to ~/.bashrc or ~/.zshrc
+echo 'export SUPABASE_URL="https://your-project.supabase.co"' >> ~/.zshrc
+echo 'export SUPABASE_ANON_KEY="your_anon_key_here"' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ### Hugging Face API Token (Optional)
 1. Go to [Hugging Face Settings → Access Tokens](https://huggingface.co/settings/tokens)
 2. Create new token
 3. Set environment variable:
+
+**Windows:**
 ```powershell
 [Environment]::SetEnvironmentVariable("HUGGINGFACE_API_TOKEN", "your_token_here", "User")
+```
+
+**macOS:**
+```bash
+# Add to ~/.bashrc or ~/.zshrc  
+echo 'export HUGGINGFACE_API_TOKEN="your_token_here"' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ### Google Cloud (for Cloud Run)
 1. Create project at [Google Cloud Console](https://console.cloud.google.com)
 2. Create service account and download JSON key
 3. Set environment variables:
+
+**Windows:**
 ```powershell
 [Environment]::SetEnvironmentVariable("GOOGLE_CLOUD_PROJECT", "your-project-id", "User")
 [Environment]::SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "path\to\key.json", "User")
+```
+
+**macOS:**
+```bash
+# Add to ~/.bashrc or ~/.zshrc
+echo 'export GOOGLE_CLOUD_PROJECT="your-project-id"' >> ~/.zshrc
+echo 'export GOOGLE_APPLICATION_CREDENTIALS="/path/to/key.json"' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 ## 🔧 Available Scripts
@@ -145,9 +232,11 @@ My-MCP-Servers/
 ├── README.md                    # This file
 ├── scripts/
 │   ├── install-working.ps1      # Main installer (Windows)
-│   ├── install-enhanced.ps1     # Interactive installer
-│   ├── install.ps1              # Legacy installer
-│   └── install.sh               # macOS/Linux (planned)
+│   ├── install-enhanced.ps1     # Interactive installer (Windows)
+│   ├── install-macos.sh         # Main installer (macOS)
+│   ├── install-enhanced-macos.sh # Interactive installer (macOS)
+│   ├── install.ps1              # Legacy installer (Windows)
+│   └── install.sh               # Legacy installer (macOS/Linux)
 ├── servers/
 │   └── registry.json            # Server definitions
 └── configs/                     # Platform-specific configs (planned)
@@ -190,7 +279,7 @@ claude mcp remove server_name
 ## 🚧 Roadmap
 
 ### Platform Support
-- [ ] macOS support (`install-macos.sh`)
+- [x] macOS support (`install-macos.sh`)
 - [ ] Linux support (`install-linux.sh`)
 - [ ] Claude Desktop configuration
 - [ ] Windsurf IDE integration
@@ -230,6 +319,6 @@ This project is for personal use. Individual MCP servers have their own licenses
 
 ---
 
-**⚠️ Important**: Currently only supports Windows + Claude Code. Other platforms are planned but not yet implemented.
+**⚠️ Important**: Currently supports Windows + Claude Code and macOS + Claude Code. Other platforms are planned but not yet implemented.
 
 **💡 Tip**: Use `-All` flag for first-time setup to install all available servers!
