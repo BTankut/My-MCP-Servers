@@ -229,11 +229,11 @@ function Install-ServerToApp {
             
             if ($ServerConfig.config_template.command -eq "npx") {
                 $Args = $ServerConfig.config_template.args -join " "
-                $Command = "claude mcp add $Server $($ServerConfig.config_template.command) $Args"
+                $Command = "claude mcp add $Server $($ServerConfig.config_template.command) $Args --scope user"
                 Write-Info "Running: $Command"
                 Invoke-Expression $Command
             } elseif ($ServerConfig.config_template.url) {
-                $Command = "claude mcp add $Server --url $($ServerConfig.config_template.url)"
+                $Command = "claude mcp add $Server --transport http $($ServerConfig.config_template.url) --scope user"
                 Write-Info "Running: $Command"
                 Invoke-Expression $Command
             }

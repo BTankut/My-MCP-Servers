@@ -36,7 +36,7 @@ foreach ($Server in $Servers) {
         if ($App -eq "claude-code") {
             if ($ServerConfig.config_template.command -eq "npx") {
                 $Args = $ServerConfig.config_template.args -join " "
-                $FullCommand = "claude mcp add $Server $($ServerConfig.config_template.command) $Args"
+                $FullCommand = "claude mcp add $Server $($ServerConfig.config_template.command) $Args --scope user"
                 Write-Host "Executing: $FullCommand" -ForegroundColor $Blue
                 
                 $result = Invoke-Expression $FullCommand 2>&1
