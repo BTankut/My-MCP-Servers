@@ -34,17 +34,29 @@
       "name": "Hugging Face MCP Server",
       "description": "Hugging Face model and dataset access",
       "install_command": {
-        "python": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3 /Users/btmacbookair/huggingface-mcp-server/src/huggingface/server.py",
-        "type": "python"
+        "npm": "npx @modelcontextprotocol/server-huggingface",
+        "type": "npx"
       },
       "config_template": {
-        "command": "python3",
-        "args": ["{path}/huggingface-mcp-server/src/huggingface/server.py"]
+        "command": "npx",
+        "args": ["@modelcontextprotocol/server-huggingface"]
       },
       "supported_platforms": ["windows", "macos", "linux"],
       "supported_apps": ["claude-code", "claude-desktop"],
       "category": "ai-ml",
-      "official": false
+      "official": true,
+      "requires_api_key": true,
+      "api_key_config": {
+        "env_vars": [
+          {
+            "name": "HUGGINGFACE_API_TOKEN",
+            "description": "Hugging Face API Token for model access",
+            "required": false,
+            "setup_url": "https://huggingface.co/settings/tokens"
+          }
+        ],
+        "instructions": "Create an API token at Hugging Face → Settings → Access Tokens. This is optional but recommended for full functionality."
+      }
     },
     "sequential-thinking": {
       "name": "Sequential Thinking MCP Server",
@@ -108,7 +120,8 @@
       "supported_platforms": ["windows", "macos", "linux"],
       "supported_apps": ["claude-code", "claude-desktop"],
       "category": "documentation",
-      "official": false
+      "official": false,
+      "requires_api_key": false
     },
     "desktop-commander": {
       "name": "Desktop Commander MCP Server",
@@ -130,17 +143,35 @@
       "name": "Google Cloud Run MCP Server",
       "description": "Google Cloud Run deployment and management",
       "install_command": {
-        "npm": "npx -y https://github.com/GoogleCloudPlatform/cloud-run-mcp",
+        "npm": "npx https://github.com/GoogleCloudPlatform/cloud-run-mcp",
         "type": "npx"
       },
       "config_template": {
         "command": "npx",
-        "args": ["-y", "https://github.com/GoogleCloudPlatform/cloud-run-mcp"]
+        "args": ["https://github.com/GoogleCloudPlatform/cloud-run-mcp"]
       },
       "supported_platforms": ["windows", "macos", "linux"],
       "supported_apps": ["claude-code", "claude-desktop"],
       "category": "cloud",
-      "official": false
+      "official": false,
+      "requires_api_key": true,
+      "api_key_config": {
+        "env_vars": [
+          {
+            "name": "GOOGLE_CLOUD_PROJECT",
+            "description": "Google Cloud Project ID",
+            "required": true,
+            "setup_url": "https://console.cloud.google.com"
+          },
+          {
+            "name": "GOOGLE_APPLICATION_CREDENTIALS",
+            "description": "Path to Google Cloud service account key JSON file",
+            "required": true,
+            "setup_url": "https://console.cloud.google.com/iam-admin/serviceaccounts"
+          }
+        ],
+        "instructions": "Create a Google Cloud project and service account. Download the JSON key file and set GOOGLE_APPLICATION_CREDENTIALS to its path."
+      }
     },
     "supabase": {
       "name": "Supabase MCP Server",
