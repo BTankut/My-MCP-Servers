@@ -16,7 +16,19 @@
       "supported_platforms": ["windows", "macos", "linux"],
       "supported_apps": ["claude-code", "claude-desktop"],
       "category": "development",
-      "official": true
+      "official": true,
+      "requires_api_key": true,
+      "api_key_config": {
+        "env_vars": [
+          {
+            "name": "GITHUB_PERSONAL_ACCESS_TOKEN",
+            "description": "GitHub Personal Access Token for API access",
+            "required": true,
+            "setup_url": "https://github.com/settings/tokens"
+          }
+        ],
+        "instructions": "Create a Personal Access Token at GitHub Settings → Developer settings → Personal access tokens → Tokens (classic). Select scopes: 'repo', 'user', 'gist' for full functionality."
+      }
     },
     "huggingface": {
       "name": "Hugging Face MCP Server",
@@ -144,7 +156,25 @@
       "supported_platforms": ["windows", "macos", "linux"],
       "supported_apps": ["claude-code", "claude-desktop"],
       "category": "database",
-      "official": false
+      "official": false,
+      "requires_api_key": true,
+      "api_key_config": {
+        "env_vars": [
+          {
+            "name": "SUPABASE_URL",
+            "description": "Your Supabase project URL",
+            "required": true,
+            "setup_url": "https://app.supabase.com"
+          },
+          {
+            "name": "SUPABASE_ANON_KEY",
+            "description": "Your Supabase project anon/public key",
+            "required": true,
+            "setup_url": "https://app.supabase.com"
+          }
+        ],
+        "instructions": "Go to your Supabase project dashboard → Settings → API. Copy the Project URL and anon/public key."
+      }
     }
   }
 }

@@ -1,154 +1,198 @@
-# MCP Server Manager
+# My MCP Servers
 
-Centralized MCP server configuration management for multiple applications and platforms.
+Kişisel MCP (Model Context Protocol) server koleksiyonunuz için otomatik kurulum ve yönetim sistemi. Windows ve macOS üzerinde Claude Code, Claude Desktop, Windsurf, Cursor ve VS Code Cline uygulamaları için MCP server'larını tek komutla kurun.
 
-## 🚀 Quick Start
+## 🚀 Özellikler
 
-### macOS/Linux
+- ✅ **Otomatik kurulum** - Tek komutla tüm MCP server'ları kur
+- 🔑 **API Key yönetimi** - Gerekli API key'lerini interaktif kurulum
+- 🌐 **Multi-platform** - Windows ve macOS desteği  
+- 📱 **Multi-app** - 5 farklı uygulama desteği
+- 📋 **İnteraktif mod** - Kullanıcı dostu kurulum süreci
+- 🔄 **Scope yönetimi** - Local, project ve user scope seçenekleri
+
+## 📦 Kurulu Server'lar
+
+| Server | Açıklama | API Key | Durum |
+|--------|----------|---------|-------|
+| **GitHub** 🐙 | Repository yönetimi ve API entegrasyonu | 🔑 Gerekli | ✅ |
+| **Puppeteer** 🎭 | Browser automation ve web scraping | ❌ | ✅ |
+| **Sequential Thinking** 🧠 | AI reasoning ve düşünce zincirleri | ❌ | ✅ |
+| **Magic** ✨ | UI component generation (21st.dev) | ❌ | ✅ |
+| **Desktop Commander** 💻 | Desktop automation ve sistem kontrolü | ❌ | ✅ |
+| **Supabase** 🗄️ | Database ve backend servisleri | 🔑 Gerekli | ⚠️ |
+| **Context7** 📚 | Context-aware dokümantasyon | ❌ | ⚠️ |
+| **Hugging Face** 🤗 | AI model ve dataset erişimi | 🔑 Opsiyonel | ⚠️ |
+| **Cloud Run** ☁️ | Google Cloud Run yönetimi | 🔑 Gerekli | ⚠️ |
+
+## 🛠️ Kurulum
+
+### Hızlı Başlangıç
 ```bash
-# Clone repository
-git clone <your-repo-url>
+# Repo'yu klonla
+git clone https://github.com/BTankut/My-MCP-Servers.git
 cd My-MCP-Servers
 
-# Interactive installation
-./scripts/install.sh --interactive --backup
-
-# Install all servers to Claude Code
-./scripts/install.sh --all --apps=claude-code
-
-# Install specific servers to multiple apps
-./scripts/install.sh --servers=github,puppeteer --apps=claude-code,windsurf
+# İnteraktif kurulum (Önerilen)
+.\scripts\install-enhanced.ps1 -Interactive -SetupKeys
 ```
 
-### Windows
+### Kurulum Seçenekleri
+
+#### 1. İnteraktif Kurulum (Önerilen)
 ```powershell
-# Interactive installation
-.\scripts\install.ps1 -Interactive -Backup
+.\scripts\install-enhanced.ps1 -Interactive -SetupKeys
+```
+- Server'ları seçebilirsiniz
+- API key'leri otomatik ayarlar
+- Adım adım rehberlik
 
-# Install all servers to Claude Code
-.\scripts\install.ps1 -All -Apps "claude-code"
-
-# Install specific servers
-.\scripts\install.ps1 -Servers "github,puppeteer" -Apps "claude-code,windsurf"
+#### 2. Tüm Server'ları Kur
+```powershell
+.\scripts\install-enhanced.ps1 -All -SetupKeys
 ```
 
-## 📋 Features
+#### 3. Belirli Server'ları Kur
+```powershell
+.\scripts\install-enhanced.ps1 -Servers "github,puppeteer,magic" -SetupKeys
+```
 
-- ✅ **Multi-Platform**: Windows, macOS, Linux support
-- ✅ **Multi-App**: Claude Code, Claude Desktop, Windsurf, Cursor, VS Code Cline
-- ✅ **Interactive Installation**: Choose what to install with guided prompts
-- ✅ **Backup System**: Automatic backup of existing configurations
-- ✅ **Dry Run Mode**: Preview changes without making them
-- ✅ **Server Registry**: Centralized server definitions and metadata
+#### 4. API Key'siz Kurulum
+```powershell
+.\scripts\install-enhanced.ps1 -All
+```
 
-## 🎯 Supported Applications
+## 🔑 API Key Kurulumu
 
-| Application | Windows | macOS | Linux |
-|-------------|---------|-------|-------|
-| Claude Code | ✅ | ✅ | ✅ |
-| Claude Desktop | ✅ | ✅ | ❌ |
-| Windsurf | ✅ | ✅ | ❓ |
-| Cursor | ✅ | ✅ | ❓ |
-| VS Code Cline | ✅ | ✅ | ✅ |
+### GitHub Personal Access Token
+1. GitHub → Settings → Developer settings → Personal access tokens
+2. "Generate new token" → Classic token
+3. Scope'ları seç: `repo`, `user`, `gist`
+4. Token'ı kopyala
 
-## 🔧 Available Servers
+### Supabase API Keys
+1. [Supabase Dashboard](https://app.supabase.com) → Project seç
+2. Settings → API
+3. Project URL ve anon key'i kopyala
 
-Current registry includes:
-- **github**: GitHub API integration
-- **huggingface**: Hugging Face models and datasets
-- **sequential-thinking**: Sequential reasoning capabilities
-- **puppeteer**: Browser automation and web scraping
-- **magic**: UI component generation (21st.dev)
-- **context7**: Context-aware documentation
-- **desktop-commander**: Desktop automation
-- **cloud-run**: Google Cloud Run management
-- **supabase**: Supabase database services
+### Manuel Environment Variable Kurulumu
+```powershell
+# GitHub
+[Environment]::SetEnvironmentVariable("GITHUB_PERSONAL_ACCESS_TOKEN", "your_token_here", "User")
 
-## 📝 Usage Examples
+# Supabase  
+[Environment]::SetEnvironmentVariable("SUPABASE_URL", "https://your-project.supabase.co", "User")
+[Environment]::SetEnvironmentVariable("SUPABASE_ANON_KEY", "your_anon_key_here", "User")
+```
 
-### Install Everything
+## 📱 Desteklenen Uygulamalar
+
+| Uygulama | Windows | macOS | Durum |
+|----------|---------|-------|-------|
+| **Claude Code** | ✅ | ✅ | Tam destek |
+| **Claude Desktop** | ✅ | ✅ | Geliştiriliyor |
+| **Windsurf** | ⚠️ | ⚠️ | Planlanan |
+| **Cursor** | ⚠️ | ⚠️ | Planlanan |
+| **VS Code Cline** | ⚠️ | ⚠️ | Planlanan |
+
+## 🔧 Script'ler
+
+### `install-enhanced.ps1` (Ana Script)
+En gelişmiş kurulum script'i:
+- İnteraktif mod
+- API key yönetimi
+- Environment variable kurulumu
+- Server seçimi
+
+### `install-working.ps1` (Basit)
+Test edilmiş, hızlı kurulum:
+- Temel server kurulumu
+- Hata ayıklama çıktıları
+
+### `install.ps1` (Gelişmiş)
+Tam özellikli script:
+- Multi-app desteği
+- Backup özelliği
+- Dry-run modu
+
+## 📋 Kullanım Örnekleri
+
+### Yeni Bilgisayar Kurulumu
+```powershell
+# 1. Repo'yu klonla
+git clone https://github.com/BTankut/My-MCP-Servers.git
+cd My-MCP-Servers
+
+# 2. İnteraktif kurulum
+.\scripts\install-enhanced.ps1 -Interactive -SetupKeys
+
+# 3. Kurulumu kontrol et  
+claude mcp list
+```
+
+### Sadece GitHub ve Magic Server'ı Kur
+```powershell
+.\scripts\install-enhanced.ps1 -Servers "github,magic" -SetupKeys
+```
+
+### Tüm Server'ları API Key'siz Test Et
+```powershell
+.\scripts\install-enhanced.ps1 -All
+```
+
+## 🔍 Sorun Giderme
+
+### MCP Server'lar Görünmüyor
 ```bash
-# macOS/Linux
-./scripts/install.sh --all --apps=all --backup
+# Session'ı yeniden başlat
+exit
+claude
 
-# Windows
-.\scripts\install.ps1 -All -Apps "all" -Backup
+# Scope kontrolü
+claude mcp list
 ```
 
-### Selective Installation
+### API Key Hataları
+```powershell
+# Environment variable'ları kontrol et
+[Environment]::GetEnvironmentVariable("GITHUB_PERSONAL_ACCESS_TOKEN", "User")
+
+# Manuel kurulum
+.\scripts\install-enhanced.ps1 -SetupKeys
+```
+
+### Bağlantı Sorunları
 ```bash
-# Only development-related servers to Claude Code
-./scripts/install.sh --servers=github,puppeteer --apps=claude-code
+# Server durumunu kontrol et
+claude mcp list
 
-# Only AI/ML servers to multiple apps
-./scripts/install.sh --servers=huggingface,sequential-thinking --apps=claude-code,claude-desktop
+# Problematik server'ı yeniden kur
+claude mcp remove server_name
+.\scripts\install-enhanced.ps1 -Servers "server_name" -SetupKeys
 ```
 
-### Interactive Mode (Recommended)
-```bash
-# macOS/Linux
-./scripts/install.sh --interactive
+## 📈 Gelecek Özellikler
 
-# Windows
-.\scripts\install.ps1 -Interactive
-```
+- [ ] macOS script desteği (`install.sh`)
+- [ ] Claude Desktop konfigürasyonu
+- [ ] Windsurf/Cursor entegrasyonu
+- [ ] Server update mekanizması
+- [ ] Web UI (opsiyonel)
+- [ ] Team sharing özellikleri
+- [ ] Otomatik backup/restore
 
-## 🛠️ Development
+## 🤝 Katkıda Bulunma
 
-### Adding New Servers
-1. Add server definition to `servers/registry.json`
-2. Test installation with `--dry-run`
-3. Create server-specific configuration templates in `configs/`
+1. Fork yapın
+2. Feature branch oluşturun (`git checkout -b feature/new-server`)
+3. Commit yapın (`git commit -am 'Add new server'`)
+4. Push yapın (`git push origin feature/new-server`)
+5. Pull Request oluşturun
 
-### Adding New Applications
-1. Update `setup.json` with application details
-2. Add detection logic to install scripts
-3. Add configuration path handling
+## 📄 Lisans
 
-## 📁 Project Structure
-
-```
-My-MCP-Servers/
-├── README.md                    # This file
-├── setup.json                   # Main configuration
-├── configs/                     # App-specific configurations
-├── scripts/                     # Installation scripts
-│   ├── install.sh              # macOS/Linux installer
-│   ├── install.ps1             # Windows installer
-│   └── utils/                  # Helper scripts
-├── servers/                     # Server definitions
-│   └── registry.json           # Server registry
-└── docs/                       # Documentation
-```
-
-## 🔍 Troubleshooting
-
-### Common Issues
-1. **App not detected**: Ensure the application is properly installed
-2. **Permission errors**: Run script with appropriate permissions
-3. **Config not found**: Check if config paths match your system
-
-### Backup Location
-Backups are stored in `backups/YYYYMMDD_HHMMSS/` with timestamp.
-
-### Dry Run Mode
-Always test with `--dry-run` first:
-```bash
-./scripts/install.sh --dry-run --all --apps=claude-code
-```
-
-## 📄 License
-
-MIT License - see LICENSE file for details.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Add your changes
-4. Test thoroughly
-5. Submit a pull request
+Bu proje kişisel kullanım içindir. MCP server'ların kendi lisansları geçerlidir.
 
 ---
 
-**Note**: This is a community project for managing MCP servers. Always backup your configurations before making changes.
+**💡 İpucu:** İlk kez kurulum yapıyorsanız `-Interactive -SetupKeys` parametrelerini kullanın!
