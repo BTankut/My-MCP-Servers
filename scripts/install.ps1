@@ -213,18 +213,66 @@ function Install-ServerToApp {
         return
     }
     
-    # This is a placeholder - actual implementation would depend on each app's configuration format
+    # Load server config from registry
+    $RegistryPath = Join-Path $ProjectDir "servers\registry.json"
+    $Registry = Get-Content $RegistryPath | ConvertFrom-Json
+    $ServerConfig = $Registry.servers.$Server
+    
+    if (-not $ServerConfig) {
+        Write-Error "Server $Server not found in registry"
+        return
+    }
+    
     switch ($App) {
         "claude-code" {
             Write-Info "Adding $Server to Claude Code..."
-            # Use claude mcp add command if available
+            
+            if ($ServerConfig.config_template.command -eq "npx") {
+                $Args = $ServerConfig.config_template.args -join " "
+                $Command = "claude mcp add $Server $($ServerConfig.config_template.command) $Args"
+                Write-Info "Running: $Command"
+                Invoke-Expression $Command
+            } elseif ($ServerConfig.config_template.url) {
+                $Command = "claude mcp add $Server --url $($ServerConfig.config_template.url)"
+                Write-Info "Running: $Command"
+                Invoke-Expression $Command
+            }
         }
         "claude-desktop" {
             Write-Info "Adding $Server to Claude Desktop..."
-            # Modify claude_desktop_config.json
+            $ConfigPath = "$env:APPDATA\Claude\claude_desktop_config.json"
+            
+            if (Test-Path $ConfigPath) {
+                # Load existing config
+                $Config = Get-Content $ConfigPath | ConvertFrom-Json
+                
+                # Initialize mcpServers if it doesn't exist
+                if (-not $Config.mcpServers) {
+                    $Config | Add-Member -MemberType NoteProperty -Name "mcpServers" -Value @{}
+                }
+                
+                # Add server config
+                if ($ServerConfig.config_template.command) {
+                    $Config.mcpServers.$Server = @{
+                        command = $ServerConfig.config_template.command
+                        args = $ServerConfig.config_template.args
+                    }
+                } elseif ($ServerConfig.config_template.url) {
+                    $Config.mcpServers.$Server = @{
+                        url = $ServerConfig.config_template.url
+                        transport = $ServerConfig.config_template.transport
+                    }
+                }
+                
+                # Save updated config
+                $Config | ConvertTo-Json -Depth 10 | Set-Content $ConfigPath
+            } else {
+                Write-Warning "Claude Desktop config not found at $ConfigPath"
+            }
         }
         default {
             Write-Warning "Installation for $App not yet implemented"
+            return
         }
     }
     
