@@ -1,7 +1,8 @@
 # Working MCP Server Installer for Windows
 param(
-    [string[]]$Servers = @("github", "puppeteer", "sequential-thinking", "magic", "desktop-commander", "supabase"),
-    [string]$App = "claude-code"
+    [string[]]$Servers = @(),
+    [string]$App = "claude-code",
+    [switch]$All
 )
 
 $Green = "Green"
@@ -23,6 +24,12 @@ if (-not (Test-Path $RegistryPath)) {
 
 $Registry = Get-Content $RegistryPath | ConvertFrom-Json
 
+# If -All flag is used or no servers specified, get all from registry
+if ($All -or $Servers.Count -eq 0) {
+    $Servers = $Registry.servers.PSObject.Properties.Name
+    Write-Host "Installing all servers from registry: $($Servers -join ', ')" -ForegroundColor $Yellow
+}
+
 foreach ($Server in $Servers) {
     Write-Host "`n--- Installing $Server ---" -ForegroundColor $Yellow
     
@@ -42,6 +49,16 @@ foreach ($Server in $Servers) {
                 $result = Invoke-Expression $FullCommand 2>&1
                 if ($LASTEXITCODE -eq 0) {
                     Write-Host "SUCCESS: $Server installed" -ForegroundColor $Green
+                } else {
+                    Write-Host "ERROR: $result" -ForegroundColor $Red
+                }
+            } elseif ($ServerConfig.config_template.url) {
+                $FullCommand = "claude mcp add $Server --transport http $($ServerConfig.config_template.url) --scope user"
+                Write-Host "Executing: $FullCommand" -ForegroundColor $Blue
+                
+                $result = Invoke-Expression $FullCommand 2>&1
+                if ($LASTEXITCODE -eq 0) {
+                    Write-Host "SUCCESS: $Server installed (HTTP)" -ForegroundColor $Green
                 } else {
                     Write-Host "ERROR: $result" -ForegroundColor $Red
                 }
